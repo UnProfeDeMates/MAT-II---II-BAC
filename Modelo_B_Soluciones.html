@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Soluciones — Modelo B</title>
+<script>MathJax={tex:{macros:{R:"\\mathbb{R}"}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>:root{--azul:#2c3e50;--azul-claro:#3498db;--verde:#27ae60;--naranja:#e67e22;--gris-fondo:#f8f9fa;--gris-borde:#dee2e6}
+body{font-family:'Georgia',serif;font-size:13.5px;max-width:900px;margin:40px auto;padding:0 36px 60px;color:var(--azul);line-height:1.75}
+h1{font-size:20px;text-align:center;border-bottom:3px solid var(--azul);padding-bottom:10px;margin-bottom:8px}
+.subtitulo{text-align:center;font-size:12px;color:#666;margin-bottom:24px;font-style:italic}
+.datos{border:1px solid var(--gris-borde);padding:8px 14px;border-radius:6px;margin-bottom:10px;background:var(--gris-fondo)}
+.ejercicio{margin-top:30px}
+.ejercicio-titulo{font-size:15px;font-weight:bold;background:var(--azul);color:#fff;padding:7px 14px;border-radius:4px;margin-bottom:14px}
+.pts{float:right;font-size:12px;font-weight:normal}
+.enun{margin:8px 6px 14px;font-size:14px}
+.teoria{background:#eaf4fb;border-left:4px solid var(--azul-claro);border-radius:0 6px 6px 0;padding:10px 16px;margin:0 0 18px;font-size:12.5px}
+.apartado{font-weight:bold;font-size:13.5px;margin:20px 0 8px 6px;border-bottom:1px solid var(--gris-borde);padding-bottom:4px}
+.paso{margin:5px 0 5px 20px}.paso .label{font-weight:bold;color:var(--azul-claro)}
+.caso{margin:3px 0 3px 40px}
+.aviso{background:#fff8e1;border-left:4px solid var(--naranja);padding:7px 14px;margin:8px 20px;font-size:12px;color:#7d5a00}.aviso::before{content:"⚠ ";font-weight:bold}
+.obs{background:#f0faf0;border-left:4px solid var(--verde);padding:7px 14px;margin:8px 20px;font-size:12px;color:#1a5c2a}.obs::before{content:"💡 "}
+.resultado{display:block;margin:12px 20px;padding:9px 16px;border:2px solid var(--azul);border-radius:4px;font-weight:bold;background:var(--gris-fondo)}
+table{margin:10px 20px;border-collapse:collapse;font-size:12.5px}td,th{border:1px solid var(--gris-borde);padding:5px 16px;text-align:center}th{background:#e8edf2}
+.espacio{height:150px}
+@media print{.espacio{height:190px}.ejercicio{page-break-inside:avoid}body{margin:0 auto}}
+details.sol{border:1px solid var(--gris-borde);border-radius:6px;margin:8px 0;background:#fff}
+details.sol>summary{cursor:pointer;padding:8px 14px;font-weight:bold;background:var(--gris-fondo);border-radius:6px;list-style:none}
+details.sol>summary::before{content:"▶ ";color:var(--azul-claro);font-size:11px}
+details.sol[open]>summary::before{content:"▼ "}
+details.sol[open]>summary{border-bottom:1px solid var(--gris-borde);border-radius:6px 6px 0 0}
+details.sol .cuerpo{padding:6px 10px 10px}
+.barra{text-align:right;margin:6px 0}.barra button{border:1px solid var(--gris-borde);background:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;color:var(--azul)}
+.enun .apartado{font-weight:normal}
+</style></head><body>
+<h1>Soluciones — Modelo B</h1><div class="subtitulo">Colegio San Luis de los Franceses &nbsp;|&nbsp; II BAC Ciencias — Matemáticas II &nbsp;|&nbsp; Matrices y Probabilidad &nbsp;|&nbsp; Dificultad muy alta</div>
+<div class="barra"><button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Desplegar todo</button> <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Plegar todo</button></div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 1 — Matrices: potencias de A = I + N y matrices que conmutan <span class="pts">2 puntos</span></div>
+<div class="enun">Sea la matriz \(A=\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}\).
+<div class="apartado">a) Escribe \(A=I+N\) y comprueba que \(N^3=O\). Calcula \(A^n\) para todo \(n\in\mathbb N\). (0,75 puntos)</div>
+<div class="apartado">b) Calcula \(A^{-1}\) por el método de los adjuntos. (0,5 puntos)</div>
+<div class="apartado">c) Halla todas las matrices \(X\) de orden 3 que verifican \(XA=AX\). (0,75 puntos)</div></div>
+<details class="sol"><summary>Planteamiento previo</summary><div class="cuerpo"><div class="teoria">Idea clave: si \(N\) es nilpotente (\(N^k=O\)), las potencias de \(A=I+N\) se calculan con el <b>binomio de Newton</b>, que es válido porque \(I\) conmuta con cualquier matriz: \((I+N)^n=\sum\binom nk N^k\).</div>
+</div></details>
+<details class="sol"><summary>a) Descomposición y potencias</summary><div class="cuerpo">
+<div class="caso">\(N=A-I=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix},\quad N^2=\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix},\quad N^3=N^2N=O\)</div>
+<div class="paso"><span class="label">Binomio de Newton</span> (\(I\) y \(N\) conmutan; solo sobreviven \(k=0,1,2\)):</div>
+<div class="caso">\(A^n=I+nN+\binom n2N^2=\begin{pmatrix}1&n&\binom n2\\0&1&n\\0&0&1\end{pmatrix}\), &nbsp; con \(\binom n2=\dfrac{n(n-1)}2\)</div>
+<div class="obs">Comprobación con \(n=3\): \(A^3=\begin{pmatrix}1&3&3\\0&1&3\\0&0&1\end{pmatrix}\), que coincide con multiplicar \(A^2A\) directamente.</div>
+</div></details>
+<details class="sol"><summary>b) Inversa por adjuntos</summary><div class="cuerpo">
+<div class="caso">\(|A|=1\neq0\) (matriz triangular con unos en la diagonal), luego existe \(A^{-1}\).</div>
+<div class="paso"><span class="label">Matriz de adjuntos:</span></div>
+<div class="caso">\(A_{11}=+\begin{vmatrix}1&1\\0&1\end{vmatrix}=1,\ \ A_{12}=-\begin{vmatrix}0&1\\0&1\end{vmatrix}=0,\ \ A_{13}=+\begin{vmatrix}0&1\\0&0\end{vmatrix}=0\)</div>
+<div class="caso">\(A_{21}=-\begin{vmatrix}1&0\\0&1\end{vmatrix}=-1,\ \ A_{22}=+\begin{vmatrix}1&0\\0&1\end{vmatrix}=1,\ \ A_{23}=-\begin{vmatrix}1&1\\0&0\end{vmatrix}=0\)</div>
+<div class="caso">\(A_{31}=+\begin{vmatrix}1&0\\1&1\end{vmatrix}=1,\ \ A_{32}=-\begin{vmatrix}1&0\\0&1\end{vmatrix}=-1,\ \ A_{33}=+\begin{vmatrix}1&1\\0&1\end{vmatrix}=1\)</div>
+<div class="paso"><span class="label">Fórmula:</span> \(A^{-1}=\dfrac1{|A|}\,\text{Adj}(A)^t\)</div>
+<div class="caso">\(A^{-1}=\begin{pmatrix}1&0&0\\-1&1&0\\1&-1&1\end{pmatrix}^{t}=\begin{pmatrix}1&-1&1\\0&1&-1\\0&0&1\end{pmatrix}\)</div>
+<div class="resultado">\(A^{-1}=\begin{pmatrix}1&-1&1\\0&1&-1\\0&0&1\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>c) Matrices que conmutan con \(A\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Simplificamos:</span> \(XA=AX\iff X(I+N)=(I+N)X\iff XN=NX\).</div>
+<div class="paso"><span class="label">Sea</span> \(X=\begin{pmatrix}a&b&c\\d&e&f\\g&h&i\end{pmatrix}\). Entonces:</div>
+<div class="caso">\(XN=\begin{pmatrix}0&a&b\\0&d&e\\0&g&h\end{pmatrix}\ \) (cada columna se desplaza una posición a la derecha),</div>
+<div class="caso">\(NX=\begin{pmatrix}d&e&f\\g&h&i\\0&0&0\end{pmatrix}\ \) (cada fila sube una posición).</div>
+<div class="paso"><span class="label">Igualamos elemento a elemento:</span></div>
+<div class="caso">Fila 1: \(0=d,\ a=e,\ b=f\). &nbsp; Fila 2: \(0=g,\ d=h,\ e=i\). &nbsp; Fila 3: \(0=0,\ g=0,\ h=0\).</div>
+<div class="caso">Por tanto \(d=g=h=0\), \(e=i=a\) y \(f=b\):</div>
+<div class="resultado">\(X=\begin{pmatrix}a&b&c\\0&a&b\\0&0&a\end{pmatrix}=aI+bN+cN^2,\quad a,b,c\in\mathbb R\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 2 — Matrices: determinantes y rango <span class="pts">2 puntos</span></div>
+<div class="enun">Dada la matriz \(M(a)=\begin{pmatrix}1&1&1\\1&a&a^2\\1&a^2&a^4\end{pmatrix}\), con \(a\in\mathbb R\):
+<div class="apartado">a) Estudia el rango de \(M(a)\) según los valores de \(a\). (1,25 puntos)</div>
+<div class="apartado">b) Para \(a=2\), calcula el determinante de las matrices \(2M^{-1}M^{t}\) y \(3M^{2}\). (0,75 puntos)</div></div>
+<details class="sol"><summary>a) Rango según \(a\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Determinante por Sarrus:</span></div>
+<div class="caso">Términos positivos: &nbsp; \(1\cdot a\cdot a^4+1\cdot a^2\cdot1+1\cdot1\cdot a^2=a^5+2a^2\)</div>
+<div class="caso">Términos negativos: &nbsp; \(1\cdot a\cdot1+1\cdot a^2\cdot a^2+1\cdot1\cdot a^4=a+2a^4\)</div>
+<div class="caso">\(|M|=a^5-2a^4+2a^2-a=a\,(a^4-2a^3+2a-1)\)</div>
+<div class="paso"><span class="label">Raíces del factor de grado 4 (Ruffini):</span> \(a=1\) es raíz y vuelve a serlo dos veces más:</div>
+<div class="caso">\(a^4-2a^3+2a-1=(a-1)(a^3-a^2-a+1)=(a-1)^2(a^2-1)=(a-1)^3(a+1)\)</div>
+<div class="resultado">\(|M(a)|=a\,(a-1)^3\,(a+1)\ \Rightarrow\ |M|=0\iff a\in\{-1,\,0,\,1\}\)</div>
+<div class="paso"><span class="label">Discusión del rango:</span></div>
+<div class="caso"><table><tr><th>Valor de \(a\)</th><th>Matriz</th><th>Rango</th></tr>
+<tr><td>\(a\neq-1,0,1\)</td><td>\(|M|\neq0\)</td><td>3</td></tr>
+<tr><td>\(a=0\)</td><td>\(\begin{pmatrix}1&1&1\\1&0&0\\1&0&0\end{pmatrix}\): menor \(\begin{vmatrix}1&1\\1&0\end{vmatrix}=-1\neq0\)</td><td>2</td></tr>
+<tr><td>\(a=-1\)</td><td>\(\begin{pmatrix}1&1&1\\1&-1&1\\1&1&1\end{pmatrix}\): menor \(\begin{vmatrix}1&1\\1&-1\end{vmatrix}=-2\neq0\)</td><td>2</td></tr>
+<tr><td>\(a=1\)</td><td>\(\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}\): todos los menores de orden 2 son nulos</td><td>1</td></tr></table></div>
+</div></details>
+<details class="sol"><summary>b) Determinantes con propiedades (\(a=2\))</summary><div class="cuerpo">
+<div class="caso">Por el apartado a): &nbsp; \(|M(2)|=2\cdot1^3\cdot3=6\); las matrices son de orden \(n=3\).</div>
+<div class="caso">\(|2M^{-1}M^t|=2^3\,|M^{-1}|\,|M^t|=8\cdot\dfrac1{6}\cdot6=8\)</div>
+<div class="caso">\(|3M^2|=3^3\,|M|^2=27\cdot36=972\)</div>
+<div class="aviso">Al sacar un escalar de una matriz de orden 3, el determinante se multiplica por \(2^3\), no por 2 (y análogamente \(3^3\) para el 3).</div>
+<div class="resultado">\(|2M^{-1}M^t|=8\); &nbsp; \(|3M^2|=972\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 3 — Sistema de ecuaciones: problema con enunciado <span class="pts">2 puntos</span></div>
+<div class="enun">Una joyería dispone de tres aleaciones de oro, plata y cobre. La primera, \(A_1\), lleva la mitad de su peso en oro y un 30 % en plata, siendo el resto cobre. La segunda, \(A_2\), tiene un 20 % de oro y un 50 % de plata, y el resto es cobre. En la tercera, \(A_3\), el oro supone un 10 % y la plata el doble que el oro, completándose con cobre. El joyero quiere fundir cierta cantidad de cada aleación para obtener 1000 g de una nueva aleación que contenga un 21 % de oro y un 31 % de plata, y el resto de cobre. Determina, justificadamente, cuántos gramos de cada aleación debe emplear.</div>
+<details class="sol"><summary>Planteamiento del sistema</summary><div class="cuerpo">
+<div class="paso"><span class="label">Datos que hay que extraer del texto:</span> \(A_1\): 50 % oro, 30 % plata, 20 % cobre. &nbsp; \(A_2\): 20 % oro, 50 % plata, 30 % cobre. &nbsp; \(A_3\): 10 % oro, 20 % plata, 70 % cobre. &nbsp; Nueva aleación: 21 % oro, 31 % plata, 48 % cobre.</div>
+<div class="paso"><span class="label">Incógnitas:</span> \(x,y,z\) gramos de \(A_1,A_2,A_3\).</div>
+<div class="paso"><span class="label">Una ecuación por cada metal</span> (gramos de ese metal en la mezcla = gramos que se quieren):</div>
+<div class="caso">Oro: &nbsp; \(0{,}5x+0{,}2y+0{,}1z=0{,}21\cdot1000=210\)</div>
+<div class="caso">Plata: &nbsp; \(0{,}3x+0{,}5y+0{,}2z=0{,}31\cdot1000=310\)</div>
+<div class="caso">Cobre: &nbsp; \(0{,}2x+0{,}3y+0{,}7z=0{,}48\cdot1000=480\)</div>
+<div class="paso"><span class="label">Multiplicamos por 10</span> para eliminar decimales:</div>
+<div class="resultado">\(\begin{cases}5x+2y+z=2100\\3x+5y+2z=3100\\2x+3y+7z=4800\end{cases}\)</div>
+<div class="obs">No hace falta añadir \(x+y+z=1000\): al sumar las tres ecuaciones se obtiene \(10x+10y+10z=10000\), es decir, esa condición ya está incluida.</div>
+</div></details>
+<details class="sol"><summary>Clasificación y resolución</summary><div class="cuerpo">
+<div class="caso">\(A=\begin{pmatrix}5&2&1\\3&5&2\\2&3&7\end{pmatrix}\), &nbsp; \(A^*=\left(\begin{array}{ccc|c}5&2&1&2100\\3&5&2&3100\\2&3&7&4800\end{array}\right)\)</div>
+<div class="paso"><span class="label">Por Sarrus:</span></div>
+<div class="caso">\(|A|=(175+8+9)-(10+30+42)=192-82=110\neq0\)</div>
+<div class="paso"><span class="label">Rouché:</span> \(\text{rg}(A)=\text{rg}(A^*)=3=\) nº de incógnitas ⟹ <b>S.C.D.</b></div>
+<div class="paso"><span class="label">Regla de Cramer:</span></div>
+<div class="caso">\(x=\dfrac{\begin{vmatrix}2100&2&1\\3100&5&2\\4800&3&7\end{vmatrix}}{110}=\dfrac{22000}{110}=200\)</div>
+<div class="caso">\(y=\dfrac{\begin{vmatrix}5&2100&1\\3&3100&2\\2&4800&7\end{vmatrix}}{110}=\dfrac{33000}{110}=300\)</div>
+<div class="caso">\(z=\dfrac{\begin{vmatrix}5&2&2100\\3&5&3100\\2&3&4800\end{vmatrix}}{110}=\dfrac{55000}{110}=500\)</div>
+<div class="obs">Comprobación: \(200+300+500=1000\) g y, por ejemplo, oro: \(0{,}5\cdot200+0{,}2\cdot300+0{,}1\cdot500=100+60+50=210\) g \(=21\,\%\).</div>
+<div class="resultado">Hay que fundir 200 g de \(A_1\), 300 g de \(A_2\) y 500 g de \(A_3\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 4 — Probabilidad: sucesos con datos condicionados <span class="pts">2 puntos</span></div>
+<div class="enun">De dos sucesos \(A\) y \(B\) se sabe que \(P(\overline A\cap\overline B)=\dfrac14\), \(P(A\,|\,B)=\dfrac12\) y \(P(B\,|\,A)=\dfrac14\).
+<div class="apartado">a) Calcula \(P(A\cap B)\), \(P(A)\) y \(P(B)\). (0,75 puntos)</div>
+<div class="apartado">b) ¿Son \(A\) y \(B\) independientes? ¿Son incompatibles? (0,25 puntos)</div>
+<div class="apartado">c) Calcula \(P(\overline A\,|\,\overline B)\). (0,5 puntos)</div>
+<div class="apartado">d) Demuestra que si \(P(A|B)=P(A|\overline B)\), entonces \(A\) y \(B\) son independientes. (0,5 puntos)</div></div>
+<details class="sol"><summary>a) Probabilidades básicas</summary><div class="cuerpo">
+<div class="paso"><span class="label">Llamamos</span> \(x=P(A\cap B)\). Despejamos \(P(A)\) y \(P(B)\) de las condicionadas:</div>
+<div class="caso">\(P(A|B)=\dfrac{x}{P(B)}=\dfrac12\Rightarrow P(B)=2x\) &nbsp;|&nbsp; \(P(B|A)=\dfrac{x}{P(A)}=\dfrac14\Rightarrow P(A)=4x\)</div>
+<div class="paso"><span class="label">Unión:</span> \(P(A\cup B)=1-P(\overline A\cap\overline B)=1-\tfrac14=\tfrac34\)</div>
+<div class="caso">\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\Rightarrow\ 4x+2x-x=5x=\dfrac34\Rightarrow x=\dfrac3{20}\)</div>
+<div class="resultado">\(P(A\cap B)=\dfrac3{20}=0{,}15,\quad P(A)=\dfrac35,\quad P(B)=\dfrac3{10}\)</div>
+</div></details>
+<details class="sol"><summary>b) Independencia e incompatibilidad</summary><div class="cuerpo">
+<div class="caso">\(P(A)P(B)=\dfrac35\cdot\dfrac3{10}=\dfrac9{50}=0{,}18\neq0{,}15=P(A\cap B)\)</div>
+<div class="resultado">No son independientes. Tampoco son incompatibles (\(P(A\cap B)\neq0\))</div>
+</div></details>
+<details class="sol"><summary>c) \(P(\overline A|\overline B)\)</summary><div class="cuerpo">
+<div class="caso">\(P(\overline B)=1-\dfrac3{10}=\dfrac7{10}\), &nbsp; \(P(\overline A|\overline B)=\dfrac{P(\overline A\cap\overline B)}{P(\overline B)}=\dfrac{1/4}{7/10}=\dfrac{10}{28}=\dfrac5{14}\)</div>
+<div class="resultado">\(P(\overline A|\overline B)=\dfrac5{14}\approx0{,}357\)</div>
+</div></details>
+<details class="sol"><summary>d) Demostración</summary><div class="cuerpo">
+<div class="paso"><span class="label">Descomponemos</span> \(A\) según ocurra \(B\) o \(\overline B\), llamando \(p=P(A|B)=P(A|\overline B)\):</div>
+<div class="caso">\(P(A)=P(A|B)P(B)+P(A|\overline B)P(\overline B)=p\,P(B)+p\,(1-P(B))=p\)</div>
+<div class="caso">Luego \(P(A)=P(A|B)\), es decir, \(P(A\cap B)=P(A)\,P(B)\): &nbsp; <b>independientes</b>. &nbsp;∎</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 5 — Probabilidad: dado y urnas con transferencia <span class="pts">2 puntos</span></div>
+<div class="enun">La urna \(U_1\) contiene 2 bolas blancas y 3 negras; la urna \(U_2\), 4 blancas y 1 negra; y la urna \(U_3\), 3 blancas y 3 negras. Se lanza un dado equilibrado de seis caras: si sale 1 o 2 se extrae una bola de \(U_1\) y, en cualquier otro caso, se extrae una bola de \(U_2\). La bola extraída se introduce en \(U_3\) y, a continuación, se extrae una bola de \(U_3\).
+<div class="apartado">a) Calcula la probabilidad de que la bola extraída de \(U_3\) sea blanca. (0,75 puntos)</div>
+<div class="apartado">b) Si la bola extraída de \(U_3\) es negra, ¿cuál es la probabilidad de que la bola que se introdujo en \(U_3\) fuese blanca? (0,5 puntos)</div>
+<div class="apartado">c) Si la bola extraída de \(U_3\) es blanca, ¿cuál es la probabilidad de que en el dado haya salido 1 o 2? (0,75 puntos)</div></div>
+<details class="sol"><summary>Planteamiento previo</summary><div class="cuerpo"><div class="paso"><span class="label">Notación:</span> \(D\): «en el dado sale 1 o 2» (se usa \(U_1\)), con \(P(D)=\dfrac26=\dfrac13\) y \(P(\overline D)=\dfrac23\). &nbsp; \(B_1\), \(N_1\): la bola que pasa a \(U_3\) es blanca / negra. &nbsp; \(B_2\), \(N_2\): la bola extraída de \(U_3\) es blanca / negra.</div>
+<div class="paso"><span class="label">Primera extracción:</span></div>
+<div class="caso">\(P(B_1\cap D)=\dfrac13\cdot\dfrac25=\dfrac2{15},\quad P(N_1\cap D)=\dfrac13\cdot\dfrac35=\dfrac3{15}\)</div>
+<div class="caso">\(P(B_1\cap\overline D)=\dfrac23\cdot\dfrac45=\dfrac8{15},\quad P(N_1\cap\overline D)=\dfrac23\cdot\dfrac15=\dfrac2{15}\)</div>
+<div class="caso">\(P(B_1)=\dfrac2{15}+\dfrac8{15}=\dfrac23,\qquad P(N_1)=\dfrac13\)</div>
+<div class="paso"><span class="label">Segunda extracción:</span> \(U_3\) tenía 3 B y 3 N y ahora tiene 7 bolas:</div>
+<div class="caso"><table><tr><th>Bola añadida</th><th>\(U_3\) queda con</th><th>\(P(B_2\,|\,\cdot)\)</th><th>\(P(N_2\,|\,\cdot)\)</th></tr>
+<tr><td>blanca</td><td>4 B, 3 N</td><td>\(4/7\)</td><td>\(3/7\)</td></tr><tr><td>negra</td><td>3 B, 4 N</td><td>\(3/7\)</td><td>\(4/7\)</td></tr></table></div>
+</div></details>
+<details class="sol"><summary>a) Bola blanca en la segunda extracción</summary><div class="cuerpo">
+<div class="caso">\(P(B_2)=P(B_1)\cdot\dfrac47+P(N_1)\cdot\dfrac37=\dfrac23\cdot\dfrac47+\dfrac13\cdot\dfrac37=\dfrac8{21}+\dfrac3{21}=\dfrac{11}{21}\)</div>
+<div class="resultado">\(P(B_2)=\dfrac{11}{21}\approx0{,}524\)</div>
+</div></details>
+<details class="sol"><summary>b) Segunda negra; primera blanca</summary><div class="cuerpo">
+<div class="paso"><span class="label">Probabilidad condicionada:</span> \(P(B_1|N_2)=\dfrac{P(B_1\cap N_2)}{P(N_2)}\)</div>
+<div class="caso">\(P(B_1\cap N_2)=P(B_1)\cdot\dfrac37=\dfrac23\cdot\dfrac37=\dfrac6{21}\), &nbsp; \(P(N_2)=1-\dfrac{11}{21}=\dfrac{10}{21}\)</div>
+<div class="caso">\(P(B_1|N_2)=\dfrac{6/21}{10/21}=\dfrac35\)</div>
+<div class="resultado">\(P(B_1|N_2)=\dfrac35=0{,}6\)</div>
+</div></details>
+<details class="sol"><summary>c) Segunda blanca; en el dado salió 1 o 2</summary><div class="cuerpo">
+<div class="paso"><span class="label">Probabilidad condicionada:</span> \(P(D|B_2)=\dfrac{P(D\cap B_2)}{P(B_2)}\). Para \(D\cap B_2\) hay que pasar por las dos ramas de la primera bola:</div>
+<div class="caso">\(P(D\cap B_2)=P(B_1\cap D)\cdot\dfrac47+P(N_1\cap D)\cdot\dfrac37=\dfrac2{15}\cdot\dfrac47+\dfrac3{15}\cdot\dfrac37=\dfrac{8+9}{105}=\dfrac{17}{105}\)</div>
+<div class="caso">\(P(D|B_2)=\dfrac{17/105}{11/21}=\dfrac{17/105}{55/105}=\dfrac{17}{55}\)</div>
+<div class="resultado">\(P(D|B_2)=\dfrac{17}{55}\approx0{,}309\)</div>
+<div class="obs">Comprobación: por la otra rama, \(P(\overline D\cap B_2)=\dfrac8{15}\cdot\dfrac47+\dfrac2{15}\cdot\dfrac37=\dfrac{38}{105}\) y \(\dfrac{17}{105}+\dfrac{38}{105}=\dfrac{55}{105}=\dfrac{11}{21}=P(B_2)\ \checkmark\)</div>
+</div></details>
+</div>
+<script>addEventListener("beforeprint",()=>document.querySelectorAll("details").forEach(d=>d.open=true))</script></body></html>
