@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parcial 1 — Evaluación 1</title>
+<script>MathJax={tex:{macros:{R:"\\mathbb{R}"}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--azul:#2c3e50;--azul-claro:#3498db;--verde:#27ae60;--naranja:#e67e22;--gris-fondo:#f8f9fa;--gris-borde:#dee2e6}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:'Georgia',serif;font-size:13.5px;color:var(--azul);line-height:1.75;background:#fff}
+.contenedor{display:flex;height:100vh}
+.sidebar{width:210px;flex:none;background:var(--azul);color:#fff;padding:20px 16px;overflow-y:auto}
+.sidebar h2{font-size:14px;margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.3)}
+.modelo-btn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 14px;margin-bottom:10px;border:2px solid transparent;background:rgba(255,255,255,.12);color:#fff;border-radius:6px;cursor:pointer;font:inherit;font-weight:bold}
+.modelo-btn:hover,.modelo-btn:focus-visible{background:rgba(255,255,255,.25);border-color:#fff;outline:none}
+.modelo-btn.activo{background:var(--azul-claro);border-color:#fff}
+.main{flex:1;overflow-y:auto;padding:30px 36px 60px}
+.pagina{max-width:900px;margin:0 auto}
+.contenido{display:none}
+.contenido.visible{display:block}
+.inicio{text-align:center;padding-top:14vh}
+.inicio h1{font-size:34px;border:none;margin-bottom:24px}
+.inicio p{font-size:17px;color:#666;margin:0 0 12px}
+h1{font-size:20px;text-align:center;border-bottom:3px solid var(--azul);padding-bottom:10px;margin:0 0 8px}
+.subtitulo{text-align:center;font-size:12px;color:#666;margin-bottom:24px;font-style:italic}
+.ejercicio{margin-top:30px}
+.ejercicio-titulo{font-size:15px;font-weight:bold;background:var(--azul);color:#fff;padding:7px 14px;border-radius:4px;margin-bottom:14px}
+.pts{float:right;font-size:12px;font-weight:normal}
+.enun{margin:8px 6px 14px;font-size:14px}
+.teoria{background:#eaf4fb;border-left:4px solid var(--azul-claro);border-radius:0 6px 6px 0;padding:10px 16px;margin:0 0 18px;font-size:12.5px}
+.apartado{font-weight:bold;font-size:13.5px;margin:20px 0 8px 6px;border-bottom:1px solid var(--gris-borde);padding-bottom:4px}
+.enun .apartado{font-weight:normal}
+.paso{margin:5px 0 5px 20px}.paso .label{font-weight:bold;color:var(--azul-claro)}
+.caso{margin:3px 0 3px 40px;overflow-x:auto}
+.aviso{background:#fff8e1;border-left:4px solid var(--naranja);padding:7px 14px;margin:8px 20px;font-size:12px;color:#7d5a00}.aviso::before{content:"⚠ ";font-weight:bold}
+.obs{background:#f0faf0;border-left:4px solid var(--verde);padding:7px 14px;margin:8px 20px;font-size:12px;color:#1a5c2a}.obs::before{content:"💡 "}
+.resultado{display:block;margin:12px 20px;padding:9px 16px;border:2px solid var(--azul);border-radius:4px;font-weight:bold;background:var(--gris-fondo)}
+table{margin:10px 20px;border-collapse:collapse;font-size:12.5px}td,th{border:1px solid var(--gris-borde);padding:5px 16px;text-align:center}th{background:#e8edf2}
+details.sol{border:1px solid var(--gris-borde);border-radius:6px;margin:8px 0;background:#fff}
+details.sol>summary{cursor:pointer;padding:8px 14px;font-weight:bold;background:var(--gris-fondo);border-radius:6px;list-style:none}
+details.sol>summary::before{content:"▶ ";color:var(--azul-claro);font-size:11px}
+details.sol[open]>summary::before{content:"▼ "}
+details.sol[open]>summary{border-bottom:1px solid var(--gris-borde);border-radius:6px 6px 0 0}
+details.sol .cuerpo{padding:6px 10px 10px}
+.barra{display:flex;gap:8px;margin:6px 0 18px}
+.barra button{border:1px solid var(--gris-borde);background:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;color:var(--azul);font:inherit}
+.barra button:hover{background:var(--gris-fondo)}
+@media print{.sidebar,.barra{display:none!important}.contenedor{display:block;height:auto}.main{overflow:visible;padding:0}.ejercicio{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <nav class="sidebar" aria-label="Modelos">
+    <h2>📚 Modelos</h2>
+    <button class="modelo-btn" id="btn-modelo1" onclick="mostrar('modelo1')">Modelo 1</button>
+    <button class="modelo-btn" id="btn-modelo2" onclick="mostrar('modelo2')">Modelo 2</button>
+    <button class="modelo-btn" id="btn-modelo3" onclick="mostrar('modelo3')">Modelo 3</button>
+  </nav>
+  <main class="main"><div class="pagina">
+
+<div id="inicio" class="contenido visible">
+  <div class="inicio">
+    <h1>Parcial 1 — Evaluación 1</h1>
+    <p>Colegio San Luis de los Franceses</p>
+    <p>II Bachillerato Ciencias — Matemáticas II</p>
+    <p style="margin-top:36px;font-size:14px;color:#999">Selecciona un modelo para continuar</p>
+  </div>
+</div>
+
+<div id="modelo1" class="contenido">
+<div class="barra"><div><button onclick="desplegarTodo('modelo1')">Desplegar todo</button> <button onclick="plegarTodo('modelo1')">Plegar todo</button></div></div>
+<h1>Soluciones — Modelo 1</h1><div class="subtitulo">Colegio San Luis de los Franceses &nbsp;|&nbsp; II BAC Ciencias — Matemáticas II &nbsp;|&nbsp; Matrices y Probabilidad &nbsp;|&nbsp; Dificultad muy alta</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 1 — Matrices: potencias, inversa y matrices que conmutan <span class="pts">2 puntos</span></div>
+<div class="enun">Sea la matriz \(A=\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}\).
+<div class="apartado">a) Calcula \(A^2\), \(A^3\) y \(A^4\) y deduce la expresión de \(A^n\) para cualquier \(n\in\mathbb N\). (0,75 puntos)</div>
+<div class="apartado">b) Calcula \(A^{-1}\) por el método de los adjuntos. (0,5 puntos)</div>
+<div class="apartado">c) Halla todas las matrices \(X\) de orden 3 que verifican \(XA=AX\). (0,75 puntos)</div></div>
+<details class="sol"><summary>a) Potencias de \(A\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Calculamos las primeras potencias:</span></div>
+<div class="caso">\(A^2=A\cdot A=\begin{pmatrix}1&2&1\\0&1&2\\0&0&1\end{pmatrix},\quad A^3=A^2\cdot A=\begin{pmatrix}1&3&3\\0&1&3\\0&0&1\end{pmatrix},\quad A^4=A^3\cdot A=\begin{pmatrix}1&4&6\\0&1&4\\0&0&1\end{pmatrix}\)</div>
+<div class="paso"><span class="label">Patrón:</span> la diagonal son unos, la segunda diagonal es \(n\), y la esquina superior derecha vale \(0,1,3,6,\dots\) (para \(n=1,2,3,4\)).</div>
+<div class="paso"><span class="label">Esquina:</span> para saber cuánto vale en general, multiplicamos una potencia genérica por \(A\):</div>
+<div class="caso">\(A^{n+1}=A^n\cdot A=\begin{pmatrix}1&n&c\\0&1&n\\0&0&1\end{pmatrix}\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}=\begin{pmatrix}1&n+1&c+n\\0&1&n+1\\0&0&1\end{pmatrix}\)</div>
+<div class="caso">La esquina aumenta en \(n\) en cada paso: &nbsp; \(0+1+2+\dots+(n-1)=\dfrac{n(n-1)}2\)</div>
+<div class="resultado">\(A^n=\begin{pmatrix}1&n&\frac{n(n-1)}2\\0&1&n\\0&0&1\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>b) Inversa por adjuntos</summary><div class="cuerpo">
+<div class="caso">\(|A|=1\neq0\) (matriz triangular con unos en la diagonal), luego existe \(A^{-1}\).</div>
+<div class="paso"><span class="label">Matriz de adjuntos:</span></div>
+<div class="caso">\(A_{11}=+\begin{vmatrix}1&1\\0&1\end{vmatrix}=1,\ \ A_{12}=-\begin{vmatrix}0&1\\0&1\end{vmatrix}=0,\ \ A_{13}=+\begin{vmatrix}0&1\\0&0\end{vmatrix}=0\)</div>
+<div class="caso">\(A_{21}=-\begin{vmatrix}1&0\\0&1\end{vmatrix}=-1,\ \ A_{22}=+\begin{vmatrix}1&0\\0&1\end{vmatrix}=1,\ \ A_{23}=-\begin{vmatrix}1&1\\0&0\end{vmatrix}=0\)</div>
+<div class="caso">\(A_{31}=+\begin{vmatrix}1&0\\1&1\end{vmatrix}=1,\ \ A_{32}=-\begin{vmatrix}1&0\\0&1\end{vmatrix}=-1,\ \ A_{33}=+\begin{vmatrix}1&1\\0&1\end{vmatrix}=1\)</div>
+<div class="paso"><span class="label">Fórmula:</span> \(A^{-1}=\dfrac1{|A|}\,\text{Adj}(A)^t\)</div>
+<div class="caso">\(A^{-1}=\begin{pmatrix}1&0&0\\-1&1&0\\1&-1&1\end{pmatrix}^{t}=\begin{pmatrix}1&-1&1\\0&1&-1\\0&0&1\end{pmatrix}\)</div>
+<div class="resultado">\(A^{-1}=\begin{pmatrix}1&-1&1\\0&1&-1\\0&0&1\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>c) Matrices que conmutan con \(A\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Simplificamos:</span> llamamos \(N=A-I=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}\). Entonces \(XA=AX\iff X(I+N)=(I+N)X\iff XN=NX\).</div>
+<div class="paso"><span class="label">Sea</span> \(X=\begin{pmatrix}a&b&c\\d&e&f\\g&h&i\end{pmatrix}\). Entonces:</div>
+<div class="caso">\(XN=\begin{pmatrix}0&a&b\\0&d&e\\0&g&h\end{pmatrix}\ \) (cada columna se desplaza una posición a la derecha),</div>
+<div class="caso">\(NX=\begin{pmatrix}d&e&f\\g&h&i\\0&0&0\end{pmatrix}\ \) (cada fila sube una posición).</div>
+<div class="paso"><span class="label">Igualamos elemento a elemento:</span></div>
+<div class="caso">Fila 1: \(0=d,\ a=e,\ b=f\). &nbsp; Fila 2: \(0=g,\ d=h,\ e=i\). &nbsp; Fila 3: \(0=0,\ g=0,\ h=0\).</div>
+<div class="caso">Por tanto \(d=g=h=0\), \(e=i=a\) y \(f=b\):</div>
+<div class="resultado">\(X=\begin{pmatrix}a&b&c\\0&a&b\\0&0&a\end{pmatrix},\quad a,b,c\in\mathbb R\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 2 — Matrices: determinantes y rango <span class="pts">2 puntos</span></div>
+<div class="enun">Dada la matriz \(M(a)=\begin{pmatrix}1&1&1\\1&a&a^2\\1&a^2&a^4\end{pmatrix}\), con \(a\in\mathbb R\):
+<div class="apartado">a) Estudia el rango de \(M(a)\) según los valores de \(a\). (1,25 puntos)</div>
+<div class="apartado">b) Para \(a=2\), calcula el determinante de las matrices \(2M^{-1}M^{t}\) y \(3M^{2}\). (0,75 puntos)</div></div>
+<details class="sol"><summary>a) Rango según \(a\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Determinante por Sarrus:</span></div>
+<div class="caso">Términos positivos: &nbsp; \(1\cdot a\cdot a^4+1\cdot a^2\cdot1+1\cdot1\cdot a^2=a^5+2a^2\)</div>
+<div class="caso">Términos negativos: &nbsp; \(1\cdot a\cdot1+1\cdot a^2\cdot a^2+1\cdot1\cdot a^4=a+2a^4\)</div>
+<div class="caso">\(|M|=a^5-2a^4+2a^2-a=a\,(a^4-2a^3+2a-1)\)</div>
+<div class="paso"><span class="label">Raíces del factor de grado 4 (Ruffini):</span> \(a=1\) es raíz y vuelve a serlo dos veces más:</div>
+<div class="caso">\(a^4-2a^3+2a-1=(a-1)(a^3-a^2-a+1)=(a-1)^2(a^2-1)=(a-1)^3(a+1)\)</div>
+<div class="resultado">\(|M(a)|=a\,(a-1)^3\,(a+1)\ \Rightarrow\ |M|=0\iff a\in\{-1,\,0,\,1\}\)</div>
+<div class="paso"><span class="label">Discusión del rango:</span></div>
+<div class="caso"><table><tr><th>Valor de \(a\)</th><th>Matriz</th><th>Rango</th></tr>
+<tr><td>\(a\neq-1,0,1\)</td><td>\(|M|\neq0\)</td><td>3</td></tr>
+<tr><td>\(a=0\)</td><td>\(\begin{pmatrix}1&1&1\\1&0&0\\1&0&0\end{pmatrix}\): menor \(\begin{vmatrix}1&1\\1&0\end{vmatrix}=-1\neq0\)</td><td>2</td></tr>
+<tr><td>\(a=-1\)</td><td>\(\begin{pmatrix}1&1&1\\1&-1&1\\1&1&1\end{pmatrix}\): menor \(\begin{vmatrix}1&1\\1&-1\end{vmatrix}=-2\neq0\)</td><td>2</td></tr>
+<tr><td>\(a=1\)</td><td>\(\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}\): todos los menores de orden 2 son nulos</td><td>1</td></tr></table></div>
+</div></details>
+<details class="sol"><summary>b) Determinantes con propiedades (\(a=2\))</summary><div class="cuerpo">
+<div class="caso">Por el apartado a): &nbsp; \(|M(2)|=2\cdot1^3\cdot3=6\); las matrices son de orden \(n=3\).</div>
+<div class="caso">\(|2M^{-1}M^t|=2^3\,|M^{-1}|\,|M^t|=8\cdot\dfrac1{6}\cdot6=8\)</div>
+<div class="caso">\(|3M^2|=3^3\,|M|^2=27\cdot36=972\)</div>
+<div class="aviso">Al sacar un escalar de una matriz de orden 3, el determinante se multiplica por \(2^3\), no por 2 (y análogamente \(3^3\) para el 3).</div>
+<div class="resultado">\(|2M^{-1}M^t|=8\); &nbsp; \(|3M^2|=972\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 3 — Sistema de ecuaciones: problema con enunciado <span class="pts">2 puntos</span></div>
+<div class="enun">Una joyería dispone de tres aleaciones de oro, plata y cobre. La primera, \(A_1\), lleva la mitad de su peso en oro y un 30 % en plata, siendo el resto cobre. La segunda, \(A_2\), tiene un 20 % de oro y un 50 % de plata, y el resto es cobre. En la tercera, \(A_3\), el oro supone un 10 % y la plata el doble que el oro, completándose con cobre. El joyero quiere fundir cierta cantidad de cada aleación para obtener 1000 g de una nueva aleación que contenga un 21 % de oro y un 31 % de plata, y el resto de cobre. Determina, justificadamente, cuántos gramos de cada aleación debe emplear.</div>
+<details class="sol"><summary>Planteamiento del sistema</summary><div class="cuerpo">
+<div class="paso"><span class="label">Datos que hay que extraer del texto:</span> \(A_1\): 50 % oro, 30 % plata, 20 % cobre. &nbsp; \(A_2\): 20 % oro, 50 % plata, 30 % cobre. &nbsp; \(A_3\): 10 % oro, 20 % plata, 70 % cobre. &nbsp; Nueva aleación: 21 % oro, 31 % plata, 48 % cobre.</div>
+<div class="paso"><span class="label">Incógnitas:</span> \(x,y,z\) gramos de \(A_1,A_2,A_3\).</div>
+<div class="paso"><span class="label">Una ecuación por cada metal</span> (gramos de ese metal en la mezcla = gramos que se quieren):</div>
+<div class="caso">Oro: &nbsp; \(0{,}5x+0{,}2y+0{,}1z=0{,}21\cdot1000=210\)</div>
+<div class="caso">Plata: &nbsp; \(0{,}3x+0{,}5y+0{,}2z=0{,}31\cdot1000=310\)</div>
+<div class="caso">Cobre: &nbsp; \(0{,}2x+0{,}3y+0{,}7z=0{,}48\cdot1000=480\)</div>
+<div class="paso"><span class="label">Multiplicamos por 10</span> para eliminar decimales:</div>
+<div class="resultado">\(\begin{cases}5x+2y+z=2100\\3x+5y+2z=3100\\2x+3y+7z=4800\end{cases}\)</div>
+<div class="obs">No hace falta añadir \(x+y+z=1000\): al sumar las tres ecuaciones se obtiene \(10x+10y+10z=10000\), es decir, esa condición ya está incluida.</div>
+</div></details>
+<details class="sol"><summary>Clasificación y resolución</summary><div class="cuerpo">
+<div class="caso">\(A=\begin{pmatrix}5&2&1\\3&5&2\\2&3&7\end{pmatrix}\), &nbsp; \(A^*=\left(\begin{array}{ccc|c}5&2&1&2100\\3&5&2&3100\\2&3&7&4800\end{array}\right)\)</div>
+<div class="paso"><span class="label">Por Sarrus:</span></div>
+<div class="caso">\(|A|=(175+8+9)-(10+30+42)=192-82=110\neq0\)</div>
+<div class="paso"><span class="label">Rouché:</span> \(\text{rg}(A)=\text{rg}(A^*)=3=\) nº de incógnitas ⟹ <b>S.C.D.</b></div>
+<div class="paso"><span class="label">Regla de Cramer:</span></div>
+<div class="caso">\(x=\dfrac{\begin{vmatrix}2100&2&1\\3100&5&2\\4800&3&7\end{vmatrix}}{110}=\dfrac{22000}{110}=200\)</div>
+<div class="caso">\(y=\dfrac{\begin{vmatrix}5&2100&1\\3&3100&2\\2&4800&7\end{vmatrix}}{110}=\dfrac{33000}{110}=300\)</div>
+<div class="caso">\(z=\dfrac{\begin{vmatrix}5&2&2100\\3&5&3100\\2&3&4800\end{vmatrix}}{110}=\dfrac{55000}{110}=500\)</div>
+<div class="obs">Comprobación: \(200+300+500=1000\) g y, por ejemplo, oro: \(0{,}5\cdot200+0{,}2\cdot300+0{,}1\cdot500=100+60+50=210\) g \(=21\,\%\).</div>
+<div class="resultado">Hay que fundir 200 g de \(A_1\), 300 g de \(A_2\) y 500 g de \(A_3\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 4 — Probabilidad: sucesos con datos condicionados <span class="pts">2 puntos</span></div>
+<div class="enun">De dos sucesos \(A\) y \(B\) se sabe que \(P(\overline A\cap\overline B)=\dfrac14\), \(P(A\,|\,B)=\dfrac12\) y \(P(B\,|\,A)=\dfrac14\).
+<div class="apartado">a) Calcula \(P(A\cap B)\), \(P(A)\) y \(P(B)\). (0,75 puntos)</div>
+<div class="apartado">b) ¿Son \(A\) y \(B\) independientes? ¿Son incompatibles? (0,25 puntos)</div>
+<div class="apartado">c) Calcula \(P(\overline A\,|\,\overline B)\). (0,5 puntos)</div>
+<div class="apartado">d) Demuestra que si \(P(A|B)=P(A|\overline B)\), entonces \(A\) y \(B\) son independientes. (0,5 puntos)</div></div>
+<details class="sol"><summary>a) Probabilidades básicas</summary><div class="cuerpo">
+<div class="paso"><span class="label">Llamamos</span> \(x=P(A\cap B)\). Despejamos \(P(A)\) y \(P(B)\) de las condicionadas:</div>
+<div class="caso">\(P(A|B)=\dfrac{x}{P(B)}=\dfrac12\Rightarrow P(B)=2x\) &nbsp;|&nbsp; \(P(B|A)=\dfrac{x}{P(A)}=\dfrac14\Rightarrow P(A)=4x\)</div>
+<div class="paso"><span class="label">Unión:</span> \(P(A\cup B)=1-P(\overline A\cap\overline B)=1-\tfrac14=\tfrac34\)</div>
+<div class="caso">\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\Rightarrow\ 4x+2x-x=5x=\dfrac34\Rightarrow x=\dfrac3{20}\)</div>
+<div class="resultado">\(P(A\cap B)=\dfrac3{20}=0{,}15,\quad P(A)=\dfrac35,\quad P(B)=\dfrac3{10}\)</div>
+</div></details>
+<details class="sol"><summary>b) Independencia e incompatibilidad</summary><div class="cuerpo">
+<div class="caso">\(P(A)P(B)=\dfrac35\cdot\dfrac3{10}=\dfrac9{50}=0{,}18\neq0{,}15=P(A\cap B)\)</div>
+<div class="resultado">No son independientes. Tampoco son incompatibles (\(P(A\cap B)\neq0\))</div>
+</div></details>
+<details class="sol"><summary>c) \(P(\overline A|\overline B)\)</summary><div class="cuerpo">
+<div class="caso">\(P(\overline B)=1-\dfrac3{10}=\dfrac7{10}\), &nbsp; \(P(\overline A|\overline B)=\dfrac{P(\overline A\cap\overline B)}{P(\overline B)}=\dfrac{1/4}{7/10}=\dfrac{10}{28}=\dfrac5{14}\)</div>
+<div class="resultado">\(P(\overline A|\overline B)=\dfrac5{14}\approx0{,}357\)</div>
+</div></details>
+<details class="sol"><summary>d) Demostración</summary><div class="cuerpo">
+<div class="paso"><span class="label">Descomponemos</span> \(A\) según ocurra \(B\) o \(\overline B\), llamando \(p=P(A|B)=P(A|\overline B)\):</div>
+<div class="caso">\(P(A)=P(A|B)P(B)+P(A|\overline B)P(\overline B)=p\,P(B)+p\,(1-P(B))=p\)</div>
+<div class="caso">Luego \(P(A)=P(A|B)\), es decir, \(P(A\cap B)=P(A)\,P(B)\): &nbsp; <b>independientes</b>. &nbsp;∎</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 5 — Probabilidad: dado y urnas con transferencia <span class="pts">2 puntos</span></div>
+<div class="enun">La urna \(U_1\) contiene 2 bolas blancas y 3 negras; la urna \(U_2\), 4 blancas y 1 negra; y la urna \(U_3\), 3 blancas y 3 negras. Se lanza un dado equilibrado de seis caras: si sale 1 o 2 se extrae una bola de \(U_1\) y, en cualquier otro caso, se extrae una bola de \(U_2\). La bola extraída se introduce en \(U_3\) y, a continuación, se extrae una bola de \(U_3\).
+<div class="apartado">a) Calcula la probabilidad de que la bola extraída de \(U_3\) sea blanca. (0,75 puntos)</div>
+<div class="apartado">b) Si la bola extraída de \(U_3\) es negra, ¿cuál es la probabilidad de que la bola que se introdujo en \(U_3\) fuese blanca? (0,5 puntos)</div>
+<div class="apartado">c) Si la bola extraída de \(U_3\) es blanca, ¿cuál es la probabilidad de que en el dado haya salido 1 o 2? (0,75 puntos)</div></div>
+<details class="sol"><summary>Planteamiento previo</summary><div class="cuerpo"><div class="paso"><span class="label">Notación:</span> \(D\): «en el dado sale 1 o 2» (se usa \(U_1\)); \(\overline D\): «sale 3, 4, 5 o 6» (se usa \(U_2\)). &nbsp; \(B_1\), \(N_1\): la bola que pasa a \(U_3\) es blanca / negra. &nbsp; \(B_2\), \(N_2\): la bola extraída de \(U_3\) es blanca / negra.</div>
+<div class="paso"><span class="label">Composición de \(U_3\) tras recibir la bola</span> (3 B y 3 N + la bola añadida, 7 bolas en total):</div>
+<div class="caso">Si entra una blanca: 4 B y 3 N, luego \(P(B_2)=\dfrac47\) y \(P(N_2)=\dfrac37\). &nbsp; Si entra una negra: 3 B y 4 N, luego \(P(B_2)=\dfrac37\) y \(P(N_2)=\dfrac47\).</div>
+<div class="paso"><span class="label">Diagrama de árbol</span> (en cada hoja, la probabilidad del camino completo, con denominador común 105):</div>
+<div style="margin:8px 20px"><svg viewBox="0 0 1000 450" width="100%" style="max-width:1000px;font-family:Georgia,serif;font-size:14px" role="img" aria-label="Diagrama de árbol del ejercicio">
+<circle cx="30" cy="220.0" r="4" fill="#2c3e50"/>
+<line x1="30" y1="220.0" x2="270" y2="120.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="63.4" y="161.0" width="173" height="18" fill="#fff" opacity="0.92"/>
+<text x="150.0" y="175.0" text-anchor="middle" fill="#1f4e79" font-weight="bold"><tspan >D</tspan>: 1/3</text>
+<circle cx="270" cy="120.0" r="4" fill="#2c3e50"/>
+<text x="270" y="142.0" fill="#555" font-size="12" text-anchor="middle">U₁</text>
+<line x1="30" y1="220.0" x2="270" y2="320.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="-35.4" y="261.0" width="370" height="18" fill="#fff" opacity="0.92"/>
+<text x="150.0" y="275.0" text-anchor="middle" fill="#1f4e79" font-weight="bold"><tspan text-decoration="overline">D</tspan>: 2/3</text>
+<circle cx="270" cy="320.0" r="4" fill="#2c3e50"/>
+<text x="270" y="342.0" fill="#555" font-size="12" text-anchor="middle">U₂</text>
+<line x1="270" y1="120.0" x2="510" y2="70.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="360.4" y="86.0" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="390.0" y="100.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₁: 2/5</text>
+<circle cx="510" cy="70.0" r="4" fill="#2c3e50"/>
+<line x1="270" y1="120.0" x2="510" y2="170.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="360.4" y="136.0" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="390.0" y="150.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₁: 3/5</text>
+<circle cx="510" cy="170.0" r="4" fill="#2c3e50"/>
+<line x1="270" y1="320.0" x2="510" y2="270.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="360.4" y="286.0" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="390.0" y="300.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₁: 4/5</text>
+<circle cx="510" cy="270.0" r="4" fill="#2c3e50"/>
+<line x1="270" y1="320.0" x2="510" y2="370.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="360.4" y="336.0" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="390.0" y="350.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₁: 1/5</text>
+<circle cx="510" cy="370.0" r="4" fill="#2c3e50"/>
+<line x1="510" y1="70.0" x2="750" y2="45.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="48.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="62.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₂: 4/7</text>
+<circle cx="750" cy="45.0" r="4" fill="#2c3e50"/>
+<text x="762" y="50.0" fill="#1a5c2a" font-weight="bold">D ∩ B₁ ∩ B₂ = 8/105</text>
+<line x1="510" y1="70.0" x2="750" y2="95.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="73.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="87.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₂: 3/7</text>
+<circle cx="750" cy="95.0" r="4" fill="#2c3e50"/>
+<text x="762" y="100.0" fill="#1a5c2a" font-weight="bold">D ∩ B₁ ∩ N₂ = 6/105</text>
+<line x1="510" y1="170.0" x2="750" y2="145.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="148.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="162.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₂: 3/7</text>
+<circle cx="750" cy="145.0" r="4" fill="#2c3e50"/>
+<text x="762" y="150.0" fill="#1a5c2a" font-weight="bold">D ∩ N₁ ∩ B₂ = 9/105</text>
+<line x1="510" y1="170.0" x2="750" y2="195.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="173.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="187.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₂: 4/7</text>
+<circle cx="750" cy="195.0" r="4" fill="#2c3e50"/>
+<text x="762" y="200.0" fill="#1a5c2a" font-weight="bold">D ∩ N₁ ∩ N₂ = 12/105</text>
+<line x1="510" y1="270.0" x2="750" y2="245.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="248.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="262.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₂: 4/7</text>
+<circle cx="750" cy="245.0" r="4" fill="#2c3e50"/>
+<text x="762" y="250.0" fill="#1a5c2a" font-weight="bold"><tspan text-decoration="overline">D</tspan> ∩ B₁ ∩ B₂ = 32/105</text>
+<line x1="510" y1="270.0" x2="750" y2="295.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="273.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="287.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₂: 3/7</text>
+<circle cx="750" cy="295.0" r="4" fill="#2c3e50"/>
+<text x="762" y="300.0" fill="#1a5c2a" font-weight="bold"><tspan text-decoration="overline">D</tspan> ∩ B₁ ∩ N₂ = 24/105</text>
+<line x1="510" y1="370.0" x2="750" y2="345.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="348.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="362.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">B₂: 3/7</text>
+<circle cx="750" cy="345.0" r="4" fill="#2c3e50"/>
+<text x="762" y="350.0" fill="#1a5c2a" font-weight="bold"><tspan text-decoration="overline">D</tspan> ∩ N₁ ∩ B₂ = 6/105</text>
+<line x1="510" y1="370.0" x2="750" y2="395.0" stroke="#2c3e50" stroke-width="1.6"/>
+<rect x="600.4" y="373.5" width="59" height="18" fill="#fff" opacity="0.92"/>
+<text x="630.0" y="387.5" text-anchor="middle" fill="#1f4e79" font-weight="bold">N₂: 4/7</text>
+<circle cx="750" cy="395.0" r="4" fill="#2c3e50"/>
+<text x="762" y="400.0" fill="#1a5c2a" font-weight="bold"><tspan text-decoration="overline">D</tspan> ∩ N₁ ∩ N₂ = 8/105</text>
+</svg></div>
+</div></details>
+<details class="sol"><summary>a) Bola blanca en la segunda extracción</summary><div class="cuerpo">
+<div class="paso"><span class="label">Caminos que acaban en \(B_2\)</span> (se suman las ramas):</div>
+<div class="caso">\(P(B_2)=\dfrac13\cdot\dfrac25\cdot\dfrac47+\dfrac13\cdot\dfrac35\cdot\dfrac37+\dfrac23\cdot\dfrac45\cdot\dfrac47+\dfrac23\cdot\dfrac15\cdot\dfrac37=\dfrac{8+9+32+6}{105}=\dfrac{55}{105}=\dfrac{11}{21}\)</div>
+<div class="resultado">\(P(B_2)=\dfrac{11}{21}\approx0{,}524\)</div>
+</div></details>
+<details class="sol"><summary>b) Segunda negra; primera blanca</summary><div class="cuerpo">
+<div class="paso"><span class="label">Probabilidad condicionada:</span> \(P(B_1|N_2)=\dfrac{P(B_1\cap N_2)}{P(N_2)}\)</div>
+<div class="caso">Caminos con \(B_1\) y \(N_2\): &nbsp; \(P(B_1\cap N_2)=\dfrac{6}{105}+\dfrac{24}{105}=\dfrac{30}{105}\)</div>
+<div class="caso">Caminos con \(N_2\): &nbsp; \(P(N_2)=\dfrac{6+12+24+8}{105}=\dfrac{50}{105}\ \ (=1-\tfrac{11}{21})\)</div>
+<div class="caso">\(P(B_1|N_2)=\dfrac{30/105}{50/105}=\dfrac35\)</div>
+<div class="resultado">\(P(B_1|N_2)=\dfrac35=0{,}6\)</div>
+</div></details>
+<details class="sol"><summary>c) Segunda blanca; en el dado salió 1 o 2</summary><div class="cuerpo">
+<div class="paso"><span class="label">Probabilidad condicionada:</span> \(P(D|B_2)=\dfrac{P(D\cap B_2)}{P(B_2)}\)</div>
+<div class="caso">Caminos con \(D\) y \(B_2\): &nbsp; \(P(D\cap B_2)=\dfrac{8}{105}+\dfrac{9}{105}=\dfrac{17}{105}\)</div>
+<div class="caso">\(P(D|B_2)=\dfrac{17/105}{55/105}=\dfrac{17}{55}\)</div>
+<div class="resultado">\(P(D|B_2)=\dfrac{17}{55}\approx0{,}309\)</div>
+<div class="obs">Comprobación: las ocho hojas del árbol suman \(\dfrac{8+6+9+12+32+24+6+8}{105}=1\).</div>
+</div></details>
+</div>
+</div>
+
+<div id="modelo2" class="contenido">
+<div class="barra"><div><button onclick="desplegarTodo('modelo2')">Desplegar todo</button> <button onclick="plegarTodo('modelo2')">Plegar todo</button></div></div>
+<h1>Soluciones — Modelo 2</h1><div class="subtitulo">Colegio San Luis de los Franceses &nbsp;|&nbsp; II BAC Ciencias — Matemáticas II &nbsp;|&nbsp; Matrices y Probabilidad &nbsp;|&nbsp; Dificultad muy alta</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 1 — Matrices: una ecuación matricial que simplifica todo <span class="pts">2 puntos</span></div>
+<div class="enun">Sea la matriz \(A=\begin{pmatrix}0&1\\2&1\end{pmatrix}\).
+<div class="apartado">a) Comprueba que \(A^2=A+2I\) y, a partir de esa igualdad (sin calcular determinantes ni adjuntos), obtén \(A^{-1}\). (0,75 puntos)</div>
+<div class="apartado">b) Expresa \(A^3\) y \(A^4\) en la forma \(pA+qI\) y calcula \(A^4\). (0,5 puntos)</div>
+<div class="apartado">c) Halla todas las matrices \(X\) de orden 2 que conmutan con \(A\) y comprueba que son de la forma \(pI+qA\). (0,75 puntos)</div></div>
+<details class="sol"><summary>a) Relación y inversa</summary><div class="cuerpo">
+<div class="caso">\(A^2=\begin{pmatrix}0&1\\2&1\end{pmatrix}\begin{pmatrix}0&1\\2&1\end{pmatrix}=\begin{pmatrix}2&1\\2&3\end{pmatrix}=\begin{pmatrix}0&1\\2&1\end{pmatrix}+\begin{pmatrix}2&0\\0&2\end{pmatrix}=A+2I\ \checkmark\)</div>
+<div class="paso"><span class="label">Despejamos \(2I\)</span> y sacamos factor común \(A\):</div>
+<div class="caso">\(A^2-A=2I\ \Rightarrow\ A(A-I)=2I\ \Rightarrow\ A\cdot\dfrac{A-I}{2}=I\)</div>
+<div class="resultado">\(A^{-1}=\dfrac12(A-I)=\begin{pmatrix}-\frac12&\frac12\\1&0\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>b) Potencias en función de \(A\) e \(I\)</summary><div class="cuerpo">
+<div class="caso">\(A^3=A\cdot A^2=A(A+2I)=A^2+2A=(A+2I)+2A=3A+2I\)</div>
+<div class="caso">\(A^4=A\cdot A^3=3A^2+2A=3(A+2I)+2A=5A+6I\)</div>
+<div class="resultado">\(A^4=5\begin{pmatrix}0&1\\2&1\end{pmatrix}+6\begin{pmatrix}1&0\\0&1\end{pmatrix}=\begin{pmatrix}6&5\\10&11\end{pmatrix}\)</div>
+<div class="obs">Truco general: cada vez que aparece \(A^2\) se sustituye por \(A+2I\); así cualquier potencia se reduce a \(pA+qI\).</div>
+</div></details>
+<details class="sol"><summary>c) Matrices que conmutan con \(A\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Sea</span> \(X=\begin{pmatrix}p&q\\r&s\end{pmatrix}\). Calculamos los dos productos:</div>
+<div class="caso">\(AX=\begin{pmatrix}r&s\\2p+r&2q+s\end{pmatrix},\qquad XA=\begin{pmatrix}2q&p+q\\2s&r+s\end{pmatrix}\)</div>
+<div class="paso"><span class="label">Igualamos:</span></div>
+<div class="caso">\(r=2q,\quad s=p+q,\quad 2p+r=2s,\quad 2q+s=r+s\)</div>
+<div class="caso">De la 1.ª y la 2.ª: \(r=2q\) y \(s=p+q\). La 3.ª (\(2p+2q=2p+2q\)) y la 4.ª (\(2q=r\)) se cumplen automáticamente.</div>
+<div class="resultado">\(X=\begin{pmatrix}p&q\\2q&p+q\end{pmatrix}=p\begin{pmatrix}1&0\\0&1\end{pmatrix}+q\begin{pmatrix}0&1\\2&1\end{pmatrix}=pI+qA\)</div>
+<div class="obs">Son dos parámetros libres. Es lo esperado: las matrices que conmutan con \(A\) son los polinomios en \(A\).</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 2 — Matrices: matrices ortogonales <span class="pts">2 puntos</span></div>
+<div class="enun">Una matriz cuadrada \(M\) se dice <b>ortogonal</b> si \(M\cdot M^{t}=I\), donde \(I\) es la matriz identidad. Se considera la matriz \(A=\dfrac13\begin{pmatrix}1&2&2\\2&1&x\\2&y&z\end{pmatrix}\).
+<div class="apartado">a) Determina los valores de \(x,y,z\) para que \(A\) sea ortogonal. (0,75 puntos)</div>
+<div class="apartado">b) Demuestra que si \(M\) es una matriz ortogonal, entonces \(|M|=\pm1\) y \(M^{-1}=M^{t}\). Calcula \(|A|\) con los valores obtenidos en a). (0,5 puntos)</div>
+<div class="apartado">c) Con los valores de a), calcula \(A^{2025}\) y resuelve la ecuación matricial \(AX=B\), siendo \(B=\begin{pmatrix}3&0&3\\0&3&0\\3&0&0\end{pmatrix}\). (0,75 puntos)</div></div>
+<details class="sol"><summary>a) Condición de ortogonalidad</summary><div class="cuerpo">
+<div class="paso"><span class="label">Qué significa \(AA^t=I\):</span> el elemento \((i,j)\) de \(AA^t\) es el producto escalar de la fila \(i\) por la fila \(j\) de \(A\). Sacando el factor \(\tfrac13\) fuera, llamando \(F_1=(1,2,2)\), \(F_2=(2,1,x)\), \(F_3=(2,y,z)\):</div>
+<div class="caso">\(AA^t=\dfrac19\,(F_i\cdot F_j)=I\ \Longrightarrow\ F_i\cdot F_i=9\ \ \text{y}\ \ F_i\cdot F_j=0\ (i\neq j)\)</div>
+<div class="paso"><span class="label">Productos de filas distintas:</span></div>
+<div class="caso">\(F_1\cdot F_2=2+2+2x=0\ \Rightarrow\ x=-2\)</div>
+<div class="caso">\(F_1\cdot F_3=2+2y+2z=0\ \Rightarrow\ y+z=-1\)</div>
+<div class="caso">\(F_2\cdot F_3=4+y+xz=4+y-2z=0\ \Rightarrow\ y-2z=-4\)</div>
+<div class="caso">Restando las dos últimas ecuaciones: \(3z=3\), luego \(z=1\) e \(y=-2\).</div>
+<div class="paso"><span class="label">Comprobamos que las filas tienen módulo 3</span> (\(F_i\cdot F_i=9\)):</div>
+<div class="caso">\(F_1\cdot F_1=1+4+4=9,\quad F_2\cdot F_2=4+1+4=9,\quad F_3\cdot F_3=4+4+1=9\ \checkmark\)</div>
+<div class="resultado">\(x=-2,\ \ y=-2,\ \ z=1,\qquad A=\dfrac13\begin{pmatrix}1&2&2\\2&1&-2\\2&-2&1\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>b) Propiedades de las matrices ortogonales</summary><div class="cuerpo">
+<div class="paso"><span class="label">Determinante:</span> si \(MM^t=I\), tomando determinantes y usando \(|M^t|=|M|\):</div>
+<div class="caso">\(|M|\,|M^t|=|M|^2=|I|=1\ \Rightarrow\ |M|=\pm1\)</div>
+<div class="paso"><span class="label">Inversa:</span> como \(|M|\neq0\), \(M\) tiene inversa, y de \(MM^t=I\) se deduce que \(M^t\) es la matriz que multiplicada por \(M\) da \(I\):</div>
+<div class="caso">Multiplicando \(MM^t=I\) por \(M^{-1}\) por la izquierda: &nbsp; \(M^{t}=M^{-1}\ \ \blacksquare\)</div>
+<div class="paso"><span class="label">Determinante de \(A\):</span> &nbsp; \(|A|=\dfrac1{3^3}\begin{vmatrix}1&2&2\\2&1&-2\\2&-2&1\end{vmatrix}\) (el factor \(\tfrac13\) sale 3 veces, una por fila)</div>
+<div class="caso">Sarrus: &nbsp; \((1-8-8)-(4+4+4)=-15-12=-27\)</div>
+<div class="resultado">\(|A|=\dfrac{-27}{27}=-1\) &nbsp; (efectivamente \(\pm1\))</div>
+</div></details>
+<details class="sol"><summary>c) Potencia y ecuación matricial</summary><div class="cuerpo">
+<div class="paso"><span class="label">\(A\) es simétrica</span> (\(A^t=A\)). Como además es ortogonal:</div>
+<div class="caso">\(A^2=A\cdot A^t=I\)</div>
+<div class="caso">\(A^{2025}=A^{2\cdot1012+1}=(A^2)^{1012}\cdot A=I\cdot A=A\)</div>
+<div class="paso"><span class="label">Ecuación \(AX=B\):</span> por ser ortogonal, \(A^{-1}=A^t=A\); no hace falta calcular adjuntos.</div>
+<div class="caso">\(X=A^{-1}B=A\,B=\dfrac13\begin{pmatrix}1&2&2\\2&1&-2\\2&-2&1\end{pmatrix}\begin{pmatrix}3&0&3\\0&3&0\\3&0&0\end{pmatrix}=\begin{pmatrix}1&2&2\\2&1&-2\\2&-2&1\end{pmatrix}\begin{pmatrix}1&0&1\\0&1&0\\1&0&0\end{pmatrix}\)</div>
+<div class="resultado">\(A^{2025}=A\);&nbsp; \(X=\begin{pmatrix}3&2&1\\0&1&2\\3&-2&2\end{pmatrix}\)</div>
+<div class="obs">Comprobación: multiplicando \(A\) por \(X\) se obtiene \(\begin{pmatrix}3&0&3\\0&3&0\\3&0&0\end{pmatrix}=B\ \checkmark\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 3 — Sistema de ecuaciones: mezcla de soluciones químicas <span class="pts">2 puntos</span></div>
+<div class="enun">En el laboratorio de química del colegio se prepara una solución destino mezclando tres soluciones base con distintas concentraciones de ácido. La solución A tiene una concentración del 10 %, la B del 30 % y la C del 60 %. Se desea obtener 650 mL de una solución cuya concentración de ácido sea aproximadamente del 34,6 %, sabiendo además que el volumen de solución B necesario es el doble del de A. Determina, justificadamente, el volumen de cada una de las tres soluciones que debe utilizarse.</div>
+<details class="sol"><summary>Planteamiento del sistema</summary><div class="cuerpo">
+<div class="paso"><span class="label">Incógnitas:</span> \(x\), \(y\), \(z\): volúmenes (en mL) de las soluciones A, B y C.</div>
+<div class="paso"><span class="label">Ecuación 1 (volumen total):</span> &nbsp; \(x+y+z=650\)</div>
+<div class="paso"><span class="label">Ecuación 2 (concentración del ácido):</span> el ácido aportado por cada solución es \(0{,}10x\), \(0{,}30y\), \(0{,}60z\) mL respectivamente. El total debe ser aproximadamente el 34,6 % de 650:</div>
+<div class="caso">\(0{,}10x+0{,}30y+0{,}60z=225\)</div>
+<div class="paso"><span class="label">Multiplicamos por 100 para evitar decimales en los determinantes:</span> &nbsp; \(10x+30y+60z=22500\)</div>
+<div class="paso"><span class="label">Ecuación 3 (relación entre volúmenes):</span> «el volumen de B es el doble del de A»:</div>
+<div class="caso">\(y=2x\ \Rightarrow\ -2x+y=0\)</div>
+<div class="resultado">\(\begin{cases}x+y+z=650\\10x+30y+60z=22500\\-2x+y=0\end{cases}\)</div>
+</div></details>
+<details class="sol"><summary>Clasificación y resolución</summary><div class="cuerpo">
+<div class="paso"><span class="label">Matriz de coeficientes y ampliada:</span></div>
+<div class="caso">\(A=\begin{pmatrix}1&1&1\\10&30&60\\-2&1&0\end{pmatrix}\), &nbsp; \(A^*=\left(\begin{array}{ccc|c}1&1&1&650\\10&30&60&22500\\-2&1&0&0\end{array}\right)\)</div>
+<div class="paso"><span class="label">Determinante por Sarrus:</span></div>
+<div class="caso">Positivos: &nbsp; \(1\cdot30\cdot0+1\cdot60\cdot(-2)+1\cdot10\cdot1=0-120+10=-110\)</div>
+<div class="caso">Negativos: &nbsp; \(1\cdot30\cdot(-2)+1\cdot60\cdot1+1\cdot10\cdot0=-60+60+0=0\)</div>
+<div class="caso">\(|A|=-110-0=-110\neq0\)</div>
+<div class="paso"><span class="label">Rouché:</span> \(\text{rg}(A)=\text{rg}(A^*)=3=\) nº de incógnitas ⟹ <b>S.C.D.</b></div>
+<div class="paso"><span class="label">Cramer:</span></div>
+<div class="caso">\(x=\dfrac{\begin{vmatrix}650&1&1\\22500&30&60\\0&1&0\end{vmatrix}}{-110}=\dfrac{650(0-60)-1(0)+1(22500)}{-110}=\dfrac{-39000+22500}{-110}=\dfrac{-16500}{-110}=150\)</div>
+<div class="caso">\(y=\dfrac{\begin{vmatrix}1&650&1\\10&22500&60\\-2&0&0\end{vmatrix}}{-110}=\dfrac{1(0)+650(0+120)+1(0+45000)}{-110}=\dfrac{78000+45000}{-110}=\dfrac{-33000}{-110}=300\)</div>
+<div class="caso">\(z=\dfrac{\begin{vmatrix}1&1&650\\10&30&22500\\-2&1&0\end{vmatrix}}{-110}=\dfrac{1(0-22500)-1(0+45000)+650(10+60)}{-110}=\dfrac{-22500-45000+45500}{-110}=\dfrac{-22000}{-110}=200\)</div>
+<div class="obs">Comprobación: \(150+300+200=650\); &nbsp; \(10\cdot150+30\cdot300+60\cdot200=1500+9000+12000=22500\ \checkmark\); &nbsp; \(300=2\cdot150\ \checkmark\)</div>
+<div class="resultado">Se necesitan <b>150 mL</b> de A, <b>300 mL</b> de B y <b>200 mL</b> de C.</div>
+<div class="obs">Curiosidad: la concentración final es exactamente \(\dfrac{225}{650}=\dfrac{45}{130}=34{,}615\ldots\%\), una mezcla interesante donde dos ingredientes (A y C) aparecen en la proporción 3:4, mientras que B mantiene el equilibrio.</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 4 — Probabilidad: tres sucesos y condicionadas <span class="pts">2 puntos</span></div>
+<div class="enun">Sean \(A\), \(B\) y \(C\) tres sucesos. Se sabe que \(A\) y \(B\) son independientes, con \(P(A)=0{,}4\) y \(P(A\cup B)=0{,}7\); además, \(P(C|B)=0{,}2\) y \(P(C|\overline B)=0{,}4\).
+<div class="apartado">a) Calcula \(P(B)\). (0,5 puntos)</div>
+<div class="apartado">b) Calcula \(P(A\cap\overline B)\) y \(P(\overline A\cup\overline B)\). (0,5 puntos)</div>
+<div class="apartado">c) Calcula \(P(C)\), \(P(B|C)\) y \(P(\overline B\,|\,\overline C)\). (0,5 puntos)</div>
+<div class="apartado">d) ¿Qué valor tendría que tomar \(P(C|\overline B)\), manteniendo \(P(C|B)=0{,}2\), para que \(B\) y \(C\) fuesen independientes? Justifica la respuesta. (0,5 puntos)</div></div>
+<details class="sol"><summary>a) \(P(B)\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Independientes:</span> \(P(A\cap B)=P(A)P(B)=0{,}4\,P(B)\)</div>
+<div class="caso">\(0{,}7=0{,}4+P(B)-0{,}4P(B)\Rightarrow 0{,}6\,P(B)=0{,}3\)</div>
+<div class="resultado">\(P(B)=0{,}5\)</div>
+</div></details>
+<details class="sol"><summary>b) Intersección y unión de complementarios</summary><div class="cuerpo">
+<div class="caso">\(P(A\cap B)=0{,}4\cdot0{,}5=0{,}2\). &nbsp; \(P(A\cap\overline B)=P(A)-P(A\cap B)=0{,}4-0{,}2=0{,}2\)</div>
+<div class="caso">De Morgan: \(P(\overline A\cup\overline B)=1-P(A\cap B)=1-0{,}2=0{,}8\)</div>
+<div class="resultado">\(P(A\cap\overline B)=0{,}2\); &nbsp; \(P(\overline A\cup\overline B)=0{,}8\)</div>
+</div></details>
+<details class="sol"><summary>c) Probabilidad condicionada con \(B\) y \(\overline B\)</summary><div class="cuerpo">
+<div class="caso">\(P(C)=P(C|B)P(B)+P(C|\overline B)P(\overline B)=0{,}2\cdot0{,}5+0{,}4\cdot0{,}5=0{,}3\)</div>
+<div class="caso">\(P(B|C)=\dfrac{P(B\cap C)}{P(C)}=\dfrac{P(B)\,P(C|B)}{P(C)}=\dfrac{0{,}1}{0{,}3}=\dfrac13\)</div>
+<div class="paso"><span class="label">Con complementarios:</span> \(P(\overline C|\overline B)=1-0{,}4=0{,}6\) y \(P(\overline C)=0{,}7\)</div>
+<div class="caso">\(P(\overline B|\overline C)=\dfrac{P(\overline B\cap\overline C)}{P(\overline C)}=\dfrac{0{,}5\cdot0{,}6}{0{,}7}=\dfrac37\)</div>
+<div class="resultado">\(P(C)=0{,}3\); &nbsp; \(P(B|C)=\dfrac13\); &nbsp; \(P(\overline B|\overline C)=\dfrac37\)</div>
+</div></details>
+<details class="sol"><summary>d) Independencia de \(B\) y \(C\)</summary><div class="cuerpo">
+<div class="paso"><span class="label">Si \(P(C|\overline B)=q\):</span> \(P(C)=0{,}2\cdot0{,}5+q\cdot0{,}5=0{,}1+0{,}5q\).</div>
+<div class="caso">Independientes \(\iff P(C|B)=P(C)\iff 0{,}2=0{,}1+0{,}5q\iff q=0{,}2\)</div>
+<div class="obs">Con los datos originales (\(q=0{,}4\)) no lo son: \(P(C)=0{,}3\neq0{,}2=P(C|B)\). En general, \(B\) y \(C\) son independientes si y solo si \(P(C|B)=P(C|\overline B)\).</div>
+<div class="resultado">\(P(C|\overline B)=0{,}2\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 5 — Probabilidad: tres conjuntos y condicionadas <span class="pts">2 puntos</span></div>
+<div class="enun">En un grupo de 200 estudiantes, 120 estudian inglés, 80 estudian francés y 50 estudian alemán. Además, 40 estudian inglés y francés, 25 inglés y alemán, 20 francés y alemán, y hay 10 que estudian los tres idiomas. Se elige un estudiante al azar. Sean \(I\), \(F\) y \(A\) los sucesos «estudia inglés», «estudia francés» y «estudia alemán».
+<div class="apartado">a) Calcula la probabilidad de que no estudie ninguno de los tres idiomas y la de que estudie exactamente uno. (0,75 puntos)</div>
+<div class="apartado">b) Calcula \(P(F\,|\,I)\) y estudia si \(I\) y \(F\) son independientes. (0,5 puntos)</div>
+<div class="apartado">c) Si estudia al menos dos idiomas, ¿cuál es la probabilidad de que estudie alemán? (0,75 puntos)</div></div>
+<details class="sol"><summary>Planteamiento previo</summary><div class="cuerpo"><div class="paso"><span class="label">Regiones del diagrama de Venn</span> (se calculan de dentro hacia fuera, empezando por \(I\cap F\cap A\)):</div>
+<div class="caso"><table><tr><th>Región</th><th>Cálculo</th><th>Estudiantes</th></tr>
+<tr><td>\(I\cap F\cap A\)</td><td>dato</td><td>10</td></tr>
+<tr><td>solo \(I\cap F\)</td><td>\(40-10\)</td><td>30</td></tr>
+<tr><td>solo \(I\cap A\)</td><td>\(25-10\)</td><td>15</td></tr>
+<tr><td>solo \(F\cap A\)</td><td>\(20-10\)</td><td>10</td></tr>
+<tr><td>solo \(I\)</td><td>\(120-30-15-10\)</td><td>65</td></tr>
+<tr><td>solo \(F\)</td><td>\(80-30-10-10\)</td><td>30</td></tr>
+<tr><td>solo \(A\)</td><td>\(50-15-10-10\)</td><td>15</td></tr>
+<tr><td>ninguno</td><td>\(200-(65+30+15+30+15+10+10)\)</td><td>25</td></tr></table></div>
+</div></details>
+<details class="sol"><summary>a) Ninguno y exactamente uno</summary><div class="cuerpo">
+<div class="caso">\(P(\text{ninguno})=\dfrac{25}{200}=\dfrac18=0{,}125\)</div>
+<div class="caso">\(P(\text{exactamente uno})=\dfrac{65+30+15}{200}=\dfrac{110}{200}=\dfrac{11}{20}=0{,}55\)</div>
+<div class="resultado">\(P(\text{ninguno})=0{,}125\); &nbsp; \(P(\text{exactamente uno})=0{,}55\)</div>
+</div></details>
+<details class="sol"><summary>b) \(P(F|I)\) e independencia</summary><div class="cuerpo">
+<div class="caso">\(P(F|I)=\dfrac{P(F\cap I)}{P(I)}=\dfrac{40/200}{120/200}=\dfrac13\)</div>
+<div class="caso">Independientes \(\iff P(F|I)=P(F)\). Aquí \(P(F)=\dfrac{80}{200}=\dfrac25\neq\dfrac13\). &nbsp; (También: \(P(I)P(F)=0{,}6\cdot0{,}4=0{,}24\neq0{,}2=P(I\cap F)\).)</div>
+<div class="resultado">\(P(F|I)=\dfrac13\); \(I\) y \(F\) no son independientes</div>
+</div></details>
+<details class="sol"><summary>c) Al menos dos idiomas</summary><div class="cuerpo">
+<div class="paso"><span class="label">Suceso que condiciona</span> \(S\): «estudia al menos dos idiomas» = las cuatro regiones con dos o tres idiomas:</div>
+<div class="caso">\(P(S)=\dfrac{30+15+10+10}{200}=\dfrac{65}{200}\)</div>
+<div class="caso">\(P(A\cap S)\): de esas cuatro regiones, las que incluyen alemán son solo \(I\cap A\), solo \(F\cap A\) y \(I\cap F\cap A\): &nbsp; \(\dfrac{15+10+10}{200}=\dfrac{35}{200}\)</div>
+<div class="caso">\(P(A|S)=\dfrac{P(A\cap S)}{P(S)}=\dfrac{35/200}{65/200}=\dfrac{35}{65}=\dfrac7{13}\)</div>
+<div class="resultado">\(P(A|S)=\dfrac7{13}\approx0{,}538\)</div>
+<div class="aviso">Cuidado: no es \(P(A)\) ni \(P(A\cap S)\). Al condicionar, el denominador pasa a ser \(P(S)\), no 1.</div>
+</div></details>
+</div>
+</div>
+
+<div id="modelo3" class="contenido">
+<div class="barra"><div><button onclick="desplegarTodo('modelo3')">Desplegar todo</button> <button onclick="plegarTodo('modelo3')">Plegar todo</button></div></div>
+<h1>Soluciones — Modelo 3</h1><div class="subtitulo">Colegio San Luis de los Franceses &nbsp;|&nbsp; II BAC Ciencias — Matemáticas II &nbsp;|&nbsp; Matrices y Probabilidad</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 1 — Matrices: ecuación matricial y determinante</div>
+<div class="enun">Considere las siguientes matrices \(A=\begin{pmatrix}1/2&1&3/2\\1&1/2&1\\3/2&1&1/2\end{pmatrix}\) y \(B=\begin{pmatrix}1&0&0\\0&1/2&0\\0&0&1/4\end{pmatrix}\)
+<div class="apartado">a) Calcula la matriz X en la ecuación \(AXB=A+B\)</div>
+<div class="apartado">b) Calcula el determinante de \(|C^2B|\), siendo \(C=2(A^{-1})^T\)</div></div>
+<details class="sol"><summary>a) Matriz \(X\)</summary><div class="cuerpo">
+<div class="caso">\(AXB=A+B\ \rightarrow\ AX=(A+B)=B^{-1}\ \rightarrow\ X=A^{-1}(A+B)B^{-1}\)</div>
+<div class="caso">\(A^{-1}=\dfrac1{|A|}Adj(A)^T=\dfrac11\begin{pmatrix}+\begin{vmatrix}1/2&1\\1&1/2\end{vmatrix}&-\begin{vmatrix}1&1\\3/2&1/2\end{vmatrix}&+\begin{vmatrix}1&1/2\\3/2&1\end{vmatrix}\\-\begin{vmatrix}1&3/2\\1&1/2\end{vmatrix}&+\begin{vmatrix}1/2&3/2\\3/2&1/2\end{vmatrix}&-\begin{vmatrix}1/2&1\\3/2&1\end{vmatrix}\\+\begin{vmatrix}1&3/2\\1/2&1\end{vmatrix}&-\begin{vmatrix}1/2&3/2\\1&1\end{vmatrix}&+\begin{vmatrix}1/2&1\\1&1/2\end{vmatrix}\end{pmatrix}^{T}\)</div>
+<div class="caso">\(=\begin{pmatrix}-3/4&1&1/4\\1&-2&1\\1/4&1&-3/4\end{pmatrix}^{T}=\begin{pmatrix}-3/4&1&1/4\\1&-2&1\\1/4&1&-3/4\end{pmatrix}\)</div>
+<div class="caso">\(B^{-1}=\dfrac1{|B|}Adj(B)^T=\begin{pmatrix}1&0&0\\0&2&0\\0&0&4\end{pmatrix}\) (Al ser una matriz diagonal)</div>
+<div class="caso">\(A+B=\begin{pmatrix}3/2&1&3/2\\1&1&1\\3/2&1&3/4\end{pmatrix}\)</div>
+<div class="caso">\(X=A^{-1}(A+B)B^{-1}=\begin{pmatrix}-3/4&1&1/4\\1&-2&1\\1/4&1&-3/4\end{pmatrix}\begin{pmatrix}3/2&1&3/2\\1&1&1\\3/2&1&3/4\end{pmatrix}\begin{pmatrix}1&0&0\\0&2&0\\0&0&4\end{pmatrix}\)</div>
+<div class="resultado">\(X=\begin{pmatrix}1/4&1&1/4\\1&0&1\\1/4&1&13/4\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>b) Determinante \(|C^2B|\)</summary><div class="cuerpo">
+<div class="caso">\(|C^2B|=|(2(A^{-1})^T)^2B|=|4\cdot((A^{-1})^T)^2B|=4^3|((A^{-1})^T)^2\cdot B|\)</div>
+<div class="caso">\(=4^3|(A^{-1})^T|^2|B|=4^3|A^{-1}|^2|B|=4^3\cdot\dfrac1{|A|^2}\cdot|B|\)</div>
+<div class="caso">\(4^3\cdot\dfrac1{1^2}\cdot\dfrac18=8\)</div>
+<div class="resultado">\(|C^2B|=8\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 2 — Matrices: sistema de ecuaciones matriciales</div>
+<div class="enun">Sean las matrices cuadradas de orden dos tales que \(5X-3Y=A\) y \(3X+6Y=B\) con \(A=\begin{pmatrix}0&-1\\1&0\end{pmatrix}\) y \(B=\begin{pmatrix}39&2\\-15&13\end{pmatrix}\). Se pide:
+<div class="apartado">a) Hallar \(X,\ Y\) y \(X^{-1}\)</div>
+<div class="apartado">b) Calcular \(A^{127}\)</div></div>
+<details class="sol"><summary>a) Matrices \(X\) e \(Y\)</summary><div class="cuerpo">
+<div class="paso">Tenemos dos ecuaciones luego podemos resolverlo como si fuera un sistema, haremos reducción</div>
+<div class="caso">\(\begin{cases}5X-3Y=A\quad(\times2)\\3X+6Y=B\end{cases}\rightarrow\begin{cases}10X-6Y=2A\\3X+6Y=B\end{cases}\rightarrow\text{sumando}\rightarrow13X=2A+B\rightarrow X=\dfrac1{13}(2A+B)\)</div>
+<div class="caso">\(X=\dfrac1{13}\left(2\begin{pmatrix}0&-1\\1&0\end{pmatrix}+\begin{pmatrix}39&2\\-15&13\end{pmatrix}\right)=\dfrac1{13}\begin{pmatrix}39&0\\-13&13\end{pmatrix}=\begin{pmatrix}3&0\\-1&1\end{pmatrix}\)</div>
+<div class="paso">Despejando el cualquiera de las dos ecuaciones sacamos el valor de \(Y\)</div>
+<div class="caso">\(3X+6Y=B\ \rightarrow\ Y=\dfrac16(B-3X)\)</div>
+<div class="caso">\(Y=\dfrac16\left(\begin{pmatrix}39&2\\-15&13\end{pmatrix}-3\begin{pmatrix}3&0\\-1&1\end{pmatrix}\right)=\begin{pmatrix}5&1/3\\-2&5/3\end{pmatrix}\)</div>
+<div class="resultado">\(X=\begin{pmatrix}3&0\\-1&1\end{pmatrix},\qquad Y=\begin{pmatrix}5&1/3\\-2&5/3\end{pmatrix}\)</div>
+</div></details>
+<details class="sol"><summary>b) Potencia \(A^{127}\)</summary><div class="cuerpo">
+<div class="caso">\(A^2=A\cdot A=\begin{pmatrix}0&-1\\1&0\end{pmatrix}\cdot\begin{pmatrix}0&-1\\1&0\end{pmatrix}=\begin{pmatrix}-1&0\\0&-1\end{pmatrix}=-I\ \rightarrow\ \textit{Hay 4 opciones}\)</div>
+<div class="caso">\(A^{127}=127:4\ \rightarrow\ \textit{resto }3\ \rightarrow\ A^3=A^2\cdot A=\begin{pmatrix}0&1\\-1&0\end{pmatrix}\)</div>
+<div class="resultado">\(A^{127}=\begin{pmatrix}0&1\\-1&0\end{pmatrix}\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 3 — Sistema de ecuaciones: problema con enunciado</div>
+<div class="enun">Un taller de carpintería especializado en muebles de comedor fabrica sillas y mesas. Para ampliar el negocio la dueña se está planteando fabricar otros muebles, como estanterías, pero esta ampliación aún no se ha efectuado y antes de considerarlo quiere utilizar sus recursos de la mejor manera posible.<br><br>Supongamos que además de sillas y mesas decide fabricar estanterías. Ahora se plantea nuevas condiciones: entre los tres productos quiere fabricar exactamente 100 a la semana; por cada mesa debe fabricar exactamente 4 sillas; y los trabajadores le piden que 5 veces el número de mesas más el número de estanterías sea de exactamente 90 unidades. ¿Podría decirle a la dueña del taller, de forma justificada, si es posible fabricar en una semana un número de sillas, mesas y estanterías que cumpla los requerimientos anteriores?</div>
+<details class="sol"><summary>Planteamiento del sistema</summary><div class="cuerpo">
+<div class="paso">\(x\rightarrow\) número de sillas. &nbsp; \(y\rightarrow\) número de mesas. &nbsp; \(z\rightarrow\) número de estanterías.</div>
+<div class="caso">\(\begin{cases}x+y+z=100\\y=\dfrac x4\\5y+z=90\end{cases}\rightarrow\begin{cases}x+y+z=100\\x-4y=0\\5y+z=90\end{cases}\rightarrow AX=B\rightarrow A^*=\left(\begin{array}{ccc|c}1&1&1&100\\1&-4&0&0\\0&5&1&90\end{array}\right)\)</div>
+</div></details>
+<details class="sol"><summary>Rangos y Rouché</summary><div class="cuerpo">
+<div class="paso"><span class="label">Rango de \(A\)</span></div>
+<div class="caso">\(|A|=(-4+0+5)-(0+1+0)=0\ \rightarrow\ \textit{Bajamos a rango 2}\ \rightarrow\ \begin{vmatrix}1&1\\1&-4\end{vmatrix}=-5\neq0\ \rightarrow\ rg(A)=2\)</div>
+<div class="paso"><span class="label">Rango de \(A^*\)</span></div>
+<div class="caso">\(\left(\begin{array}{ccc|c}1&1&1&100\\1&-4&0&0\\0&5&1&90\end{array}\right)\) No se ve ninguna combinación lineal, probamos quitando la segunda columna.</div>
+<div class="caso">\(\begin{vmatrix}1&1&100\\1&0&0\\0&1&90\end{vmatrix}=100-90=10\neq0\ \rightarrow\ rg(A^*)=3\)</div>
+<div class="caso">Por Rouché vemos que \(rg(A)=2\neq3=rg(A^*)\ \rightarrow\ \textit{Sistema incompatible}.\)</div>
+<div class="resultado">Con los requisitos del problema no existe una combinación de sillas, mesas y estanterías.</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 4 — Probabilidad: sucesos independientes y condicionada</div>
+<div class="enun">Sean los sucesos A, B y C de los que se sabe que A y B son independientes. Además, se conoce la siguiente información:
+<div style="text-align:center">\(P(A)=0{,}4\qquad P(\overline B)=0{,}7\qquad P(C)=0{,}5\qquad P(A\cap B\,|\,C)=0{,}2\)</div>
+<div class="apartado">a) Calcule la probabilidad de no ocurra A o no ocurra B.</div>
+<div class="apartado">b) Determine la probabilidad de que A y \(\overline B\) ocurran simultáneamente.</div>
+<div class="apartado">c) Obtenga \(P(C\,|\,A\cap B)\).</div></div>
+<details class="sol"><summary>a) \(P(\overline A\cup\overline B)\)</summary><div class="cuerpo">
+<div class="caso">Como A y B son independientes &nbsp; \(P(A\cap B)=0{,}4\cdot0{,}3=0{,}12\)</div>
+<div class="caso">\(P(\overline A\cup\overline B)=P(\overline{A\cap B})=1-0{,}12=0{,}88\)</div>
+<div class="resultado">\(P(\overline A\cup\overline B)=0{,}88\)</div>
+</div></details>
+<details class="sol"><summary>b) \(P(A\cap\overline B)\)</summary><div class="cuerpo">
+<div class="caso">\(P(A\cap\overline B)=P(A)-P(A\cap B)=0{,}4-0{,}12=0{,}28\)</div>
+<div class="resultado">\(P(A\cap\overline B)=0{,}28\)</div>
+</div></details>
+<details class="sol"><summary>c) \(P(C\,|\,A\cap B)\)</summary><div class="cuerpo">
+<div class="caso">Nos daban el dato de \(P(A\cap B\,|\,C)=0{,}2\ \rightarrow\ \dfrac{P(A\cap B\cap C)}{P(C)}=0{,}2\ \rightarrow\ P(A\cap B\cap C)=0{,}1\)</div>
+<div class="caso">\(P(C\,|\,A\cap B)=\dfrac{P(C\cap A\cap B)}{P(A\cap B)}=\dfrac{0{,}1}{0{,}12}=0{,}8333\)</div>
+<div class="resultado">\(P(C\,|\,A\cap B)=0{,}8333\)</div>
+</div></details>
+</div>
+<div class="ejercicio"><div class="ejercicio-titulo">Ejercicio 5 — Probabilidad: municipios y compra en un comercio</div>
+<div class="enun">Los clientes potenciales de un comercio local, Mitienda, vienen de alguno de los municipios M1, M2 o M3. En M1 el 20 % de la población compra en Mitienda, siendo estos porcentajes del 10 % en M2 y del 8 % en M3. Además, se sabe que el 50 % de la población vive en M1, el 30 % en M2 y el 20 % en M3.
+<div class="apartado">a) Se elige al azar un habitante de uno de los tres municipios. Calcule la probabilidad de que compre en Mitienda.</div>
+<div class="apartado">b) Se elige al azar un individuo que ha comprado en Mitienda. Obtenga la probabilidad de que sea de los municipios M2 o M3.</div></div>
+<details class="sol"><summary>Diagrama de árbol</summary><div class="cuerpo">
+<div style="margin:8px 20px"><svg viewBox="0 0 640 300" width="100%" style="max-width:640px;font-family:Georgia,serif;font-size:13px" role="img" aria-label="Diagrama de árbol: municipio y compra en Mitienda"><rect x="10" y="136" width="84" height="28" rx="3" fill="#4f81bd"/><text x="52.0" y="154" text-anchor="middle" fill="#fff" font-size="12">Comercio</text><line x1="94" y1="150" x2="230" y2="50" stroke="#2c3e50" stroke-width="1.6"/><text x="140" y="90.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,5</text><rect x="230" y="36" width="56" height="28" rx="3" fill="#4f81bd"/><text x="258.0" y="54" text-anchor="middle" fill="#fff" font-size="12">M1</text><line x1="286" y1="50" x2="420" y2="26" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="33.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,2</text><rect x="420" y="12" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="30" text-anchor="middle" fill="#fff" font-size="12">Mitienda</text><line x1="286" y1="50" x2="420" y2="74" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="57.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,8</text><rect x="420" y="60" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="78" text-anchor="middle" fill="#fff" font-size="12">No Mitienda</text><line x1="94" y1="150" x2="230" y2="150" stroke="#2c3e50" stroke-width="1.6"/><text x="150" y="144" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,3</text><rect x="230" y="136" width="56" height="28" rx="3" fill="#4f81bd"/><text x="258.0" y="154" text-anchor="middle" fill="#fff" font-size="12">M2</text><line x1="286" y1="150" x2="420" y2="126" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="133.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,1</text><rect x="420" y="112" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="130" text-anchor="middle" fill="#fff" font-size="12">Mitienda</text><line x1="286" y1="150" x2="420" y2="174" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="157.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,9</text><rect x="420" y="160" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="178" text-anchor="middle" fill="#fff" font-size="12">No Mitienda</text><line x1="94" y1="150" x2="230" y2="250" stroke="#2c3e50" stroke-width="1.6"/><text x="172" y="208.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,2</text><rect x="230" y="236" width="56" height="28" rx="3" fill="#4f81bd"/><text x="258.0" y="254" text-anchor="middle" fill="#fff" font-size="12">M3</text><line x1="286" y1="250" x2="420" y2="226" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="233.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,08</text><rect x="420" y="212" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="230" text-anchor="middle" fill="#fff" font-size="12">Mitienda</text><line x1="286" y1="250" x2="420" y2="274" stroke="#2c3e50" stroke-width="1.6"/><text x="352" y="257.0" text-anchor="middle" fill="#1f4e79" font-weight="bold">0,92</text><rect x="420" y="260" width="92" height="28" rx="3" fill="#4f81bd"/><text x="466.0" y="278" text-anchor="middle" fill="#fff" font-size="12">No Mitienda</text></svg></div>
+</div></details>
+<details class="sol"><summary>a) \(P(Mitienda)\)</summary><div class="cuerpo">
+<div class="caso">\(P(Mitienda)=0{,}5\cdot0{,}2+0{,}3\cdot0{,}1+0{,}2\cdot0{,}08=0{,}146\)</div>
+<div class="resultado">\(P(Mitienda)=0{,}146\)</div>
+</div></details>
+<details class="sol"><summary>b) \(P(M2\cup M3\,|\,Mitienda)\)</summary><div class="cuerpo">
+<div class="caso">\(P(M2\cup M3\,|\,Mitienda)=\dfrac{P((M2\cup M3)\cap Mitienda)}{P(Mitienda)}=\dfrac{0{,}3\cdot0{,}1+0{,}2\cdot0{,}08}{0{,}146}=0{,}3151\)</div>
+<div class="resultado">\(P(M2\cup M3\,|\,Mitienda)=0{,}3151\)</div>
+</div></details>
+</div>
+
+</div>
+
+  </div></main>
+</div>
+
+<script>
+var MODELOS = ["modelo1", "modelo2", "modelo3"];
+
+function mostrar(id) {
+  document.querySelectorAll(".contenido").forEach(function (el) { el.classList.remove("visible"); });
+  document.getElementById(id).classList.add("visible");
+  MODELOS.forEach(function (m) { document.getElementById("btn-" + m).classList.toggle("activo", m === id); });
+  document.querySelector(".main").scrollTop = 0;
+}
+
+function desplegarTodo(id) { document.getElementById(id).querySelectorAll("details").forEach(function (d) { d.open = true; }); }
+function plegarTodo(id) { document.getElementById(id).querySelectorAll("details").forEach(function (d) { d.open = false; }); }
+
+window.addEventListener("beforeprint", function () { document.querySelectorAll("details").forEach(function (d) { d.open = true; }); });
+</script>
+</body>
+</html>
